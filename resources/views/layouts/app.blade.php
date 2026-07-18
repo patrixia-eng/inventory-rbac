@@ -14,8 +14,12 @@
             @can('can_print')
                 <a href="{{ route('reports.inventory') }}">Print Report</a>
             @endcan
+            @can('can_manage_users')
+                <a href="{{ route('roles.index') }}">Roles</a>
+            @endcan
             <span class="user-label">
-                {{ auth()->user()->name }} ({{ auth()->user()->role?->name ?? 'No Role' }})
+                {{ auth()->user()->name }}
+                ({{ auth()->user()->roles->pluck('name')->implode(', ') ?: 'No Role' }})
             </span>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
